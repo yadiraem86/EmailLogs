@@ -1,0 +1,6 @@
+{
+  "/api/v1/*": "/$1",
+  "/:resource/GetLogs/:status": "/:resource?status=:status",
+  "/:resource/UpdateProperties/:id": "/:resource/:id",
+  "/:resource/Printable?id=:id": "/:resource/:id"
+}
