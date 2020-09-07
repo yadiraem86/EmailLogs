@@ -16,7 +16,7 @@
       "created": "2019-04-12T13:21:13.17",
       "isPrintable": true,
       "templateName": "Stipulation Doc Reject Info To Dealer",
-      "canBeSent": false,
+      "canBeSent": true,
       "status": 2,
       "statusString": "Sent",
       "printStatus": "Printed At Least Once",
