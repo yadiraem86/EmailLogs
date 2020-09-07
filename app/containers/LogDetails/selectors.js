@@ -7,19 +7,26 @@ import { initialState } from './reducer';
 
 const selectLogDetailsDomain = state => state.logDetails || initialState;
 
-/**
- * Other specific selectors
- */
-
-/**
- * Default selector used by LogDetails
- */
-
-const makeSelectLogDetails = () =>
+export const makeSelectLog = () =>
   createSelector(
     selectLogDetailsDomain,
-    substate => substate,
+    substate => substate.log,
   );
 
-export default makeSelectLogDetails;
-export { selectLogDetailsDomain };
+export const makeSelectLoading = () =>
+  createSelector(
+    selectLogDetailsDomain,
+    substate => substate.loading,
+  );
+
+export const makeSelectLogUpdated = () =>
+  createSelector(
+    selectLogDetailsDomain,
+    substate => substate.logUpdated,
+  );
+
+export const makeSelectLogSent = () =>
+  createSelector(
+    selectLogDetailsDomain,
+    substate => substate.logSent,
+  );

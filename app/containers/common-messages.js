@@ -19,4 +19,8 @@ export default defineMessages({
     id: `${scope}.createdAt`,
     defaultMessage: 'Created at',
   },
+  update: {
+    id: `${scope}.update`,
+    defaultMessage: 'Update',
+  },
 });

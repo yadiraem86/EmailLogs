@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Layout, Menu } from 'antd';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
+import { MailOutlined } from '@ant-design/icons';
+
 import logo from './logo.png';
 import menuOptions from '../../config/menu';
 import messages from './messages';
@@ -33,6 +35,7 @@ const LogoContainer = styled.div`
 
 const LogoImage = styled.img`
   width: 2rem;
+  margin-left: 0.4375rem;
 `;
 
 const AppName = styled.span`
@@ -64,7 +67,7 @@ function SideMenu({ collapsed, intl, history }) {
         {menuOptions.map(menuOption => (
           <CustomMenuItem
             key={menuOption.key}
-            icon={<menuOption.icon />}
+            icon={<MailOutlined />}
             onClick={() => {
               history.push(menuOption.path);
             }}

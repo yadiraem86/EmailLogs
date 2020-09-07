@@ -8,7 +8,6 @@ import { notification } from 'antd';
  * @return {object}          The parsed JSON from the request
  */
 function parseJSON(response) {
-  console.log(response);
   if (response.status === 204 || response.status === 205) {
     return null;
   }
@@ -40,9 +39,22 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options) {
+export default function request(url, options = {}) {
   const endpoint = new URL(url, process.env.API_URL);
-  return fetch(endpoint.href, options)
+
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+  });
+  const defaultOptions = {
+    headers,
+  };
+
+  let newOptions = { ...options };
+  if (options.body) {
+    newOptions = { ...newOptions, body: JSON.stringify(options.body) };
+  }
+
+  return fetch(endpoint.href, { ...defaultOptions, ...newOptions })
     .then(checkStatus)
     .then(parseJSON)
     .catch(error => {

@@ -3,7 +3,6 @@ import { List, Card, Tooltip, Tag } from 'antd';
 import { MailOutlined, PrinterOutlined, SendOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import classnames from 'classnames';
 import moment from 'moment';
 
 import commonMessages from 'containers/common-messages';
@@ -12,6 +11,7 @@ import { injectIntl, intlShape } from 'react-intl';
 const { Meta } = Card;
 
 const CustomCard = styled(Card)`
+  cursor: pointer;
   .ant-card-head {
     display: flex;
     padding: 0 0.75rem;
@@ -25,9 +25,6 @@ const CustomCard = styled(Card)`
   }
   .ant-card-body {
     padding: 0.75rem;
-  }
-  &.ant-card-printable {
-    cursor: pointer;
   }
   .ant-card-meta-detail > div:not(:last-child) {
     margin-bottom: 2px;
@@ -79,7 +76,6 @@ function LogItem(props) {
             <MailOutlined /> <StyledSpan>{log.id}</StyledSpan>
           </span>
         }
-        className={classnames({ 'ant-card-printable': log.isPrintable })}
       >
         <Meta
           title={

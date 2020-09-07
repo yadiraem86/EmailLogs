@@ -9,8 +9,12 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.containers.LogDetails';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the LogDetails container!',
+  printLog: {
+    id: `${scope}.printLog`,
+    defaultMessage: 'Print log',
+  },
+  sendLog: {
+    id: `${scope}.sendLog`,
+    defaultMessage: 'Send log',
   },
 });

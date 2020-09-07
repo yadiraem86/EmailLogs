@@ -40,4 +40,12 @@ export default defineMessages({
     id: `${scope}.searchLogsPlaceHolder`,
     defaultMessage: 'Search logs by id or template name',
   },
+  successfullyUpdated: {
+    id: `${scope}.successfullyUpdated`,
+    defaultMessage: 'Log successfully updated',
+  },
+  successfullySent: {
+    id: `${scope}.successfullySent`,
+    defaultMessage: 'Log successfully sent',
+  },
 });
