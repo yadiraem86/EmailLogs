@@ -24,15 +24,3 @@ export function setLogsError(error) {
     error,
   };
 }
-
-export function clearLogSent() {
-  return {
-    type: CLEAR_LOG_SEND,
-  };
-}
-
-export function clearLogUpdated() {
-  return {
-    type: CLEAR_LOG_UPDATED,
-  };
-}

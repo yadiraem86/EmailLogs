@@ -3,8 +3,7 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import { List, Row, message, Col } from 'antd';
-import { CheckCircleTwoTone } from '@ant-design/icons';
+import { List, Row, Col } from 'antd';
 import styled from 'styled-components';
 import { intlShape, injectIntl } from 'react-intl';
 import Search from 'components/Search';
@@ -15,19 +14,15 @@ import saga from './sagas';
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
 import * as actions from './actions';
-import LogItem from './components/log-item';
+import LogItem from './components/LogItem';
 import {
   makeSelectLogs,
   makeSelectLoading,
   makeSelectError,
 } from './selectors';
-import FilterMenu from './components/filter-menu';
+import FilterMenu from './components/FilterMenu';
 import messages from './messages';
 import commonMessages from '../common-messages';
-import {
-  makeSelectLogSent,
-  makeSelectLogUpdated,
-} from '../LogDetails/selectors';
 
 const key = 'logsList';
 
@@ -47,18 +42,7 @@ export function LogsList(props) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const {
-    getLogs,
-    setLogs,
-    logs,
-    loading,
-    intl,
-    history,
-    logUpdated,
-    logSent,
-    clearLogSent,
-    clearLogUpdated,
-  } = props;
+  const { getLogs, setLogs, logs, loading, intl, history } = props;
   // Used to replicate data present in redux because this demo does not use server for filtering
   // because of potential incompatible names in api queries
   const [internalLogs, setInternalLogs] = useState([]);
@@ -88,28 +72,6 @@ export function LogsList(props) {
 
   useEffect(() => {
     getLogs({});
-
-    if (logSent) {
-      message.info(
-        {
-          content: intl.formatMessage(messages.successfullySent),
-          icon: <CheckCircleTwoTone twoToneColor="#52c41a" />,
-        },
-        2,
-      );
-      clearLogSent();
-    }
-
-    if (logUpdated) {
-      message.info(
-        {
-          content: intl.formatMessage(messages.successfullyUpdated),
-          icon: <CheckCircleTwoTone twoToneColor="#52c41a" />,
-        },
-        2,
-      );
-      clearLogUpdated();
-    }
 
     return () => {
       setLogs([]);
@@ -205,8 +167,6 @@ export function LogsList(props) {
 LogsList.propTypes = {
   getLogs: PropTypes.func.isRequired,
   setLogs: PropTypes.func.isRequired,
-  clearLogSent: PropTypes.func.isRequired,
-  clearLogUpdated: PropTypes.func.isRequired,
   logs: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   logUpdated: PropTypes.bool,
@@ -219,8 +179,6 @@ const mapStateToProps = createStructuredSelector({
   logs: makeSelectLogs(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
-  logSent: makeSelectLogSent(),
-  logUpdated: makeSelectLogUpdated(),
 });
 
 const withConnect = connect(

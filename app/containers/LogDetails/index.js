@@ -10,8 +10,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import styled from 'styled-components';
-import { Spin, Row, Col, Divider, message } from 'antd';
-import { withRouter, Link } from 'react-router-dom';
+import { Spin, Row, Col, message } from 'antd';
+import { intlShape, injectIntl } from 'react-intl';
+import { withRouter } from 'react-router-dom';
+import { CheckCircleTwoTone } from '@ant-design/icons';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -24,8 +26,10 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import * as actions from './actions';
-import EmailInfo from './components/EmailInfo';
 import EmailInfoForm from './components/EmailInfoForm';
+import EmailInfo from './components/EmailInfo';
+import messages from './messages';
+import PageHeader from './components/Header';
 
 const key = 'logDetails';
 
@@ -77,7 +81,10 @@ export function LogDetails(props) {
     updateLogAttributes,
     logSent,
     logUpdated,
+    clearLogSent,
+    clearLogUpdated,
     history,
+    intl,
   } = props;
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -90,8 +97,26 @@ export function LogDetails(props) {
   }, []);
 
   useEffect(() => {
-    if (logSent || logUpdated) {
-      history.replace('/');
+    (logSent || logUpdated) && getLog(match.params.id);
+
+    if (logSent) {
+      message.info(
+        {
+          content: intl.formatMessage(messages.successfullySent),
+          icon: <CheckCircleTwoTone twoToneColor="#52c41a" />,
+        },
+        2,
+      );
+      clearLogSent();
+    } else if (logUpdated) {
+      message.info(
+        {
+          content: intl.formatMessage(messages.successfullyUpdated),
+          icon: <CheckCircleTwoTone twoToneColor="#52c41a" />,
+        },
+        2,
+      );
+      clearLogUpdated();
     }
   }, [logSent, logUpdated]);
 
@@ -135,16 +160,19 @@ export function LogDetails(props) {
     updateLogAttributes(editableValues);
   };
 
+  const gotoLogs = () => {
+    history.push('/');
+  };
+
   const printCurrentLog = () => {
     message.info('Not implemented!');
   };
   return (
     <Spin spinning={loading}>
-      <CustomRow>
-        <Link to="/">Logs</Link>
-        <Divider type="vertical" />
-        {log.id}
-      </CustomRow>
+      <PageHeader
+        onBack={gotoLogs}
+        title={intl.formatMessage(messages.title, { id: log.id })}
+      />
       <Container justify="space-between" type="flex">
         <LeftColum xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
           <EmailInfo
@@ -172,6 +200,8 @@ LogDetails.propTypes = {
   setLog: PropTypes.func.isRequired,
   sendLog: PropTypes.func.isRequired,
   updateLogAttributes: PropTypes.func.isRequired,
+  clearLogSent: PropTypes.func.isRequired,
+  clearLogUpdated: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object,
     isExact: PropTypes.bool,
@@ -183,6 +213,7 @@ LogDetails.propTypes = {
   loading: PropTypes.bool.isRequired,
   logUpdated: PropTypes.bool.isRequired,
   logSent: PropTypes.bool.isRequired,
+  intl: intlShape,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -197,4 +228,4 @@ const withConnect = connect(
   actions,
 );
 
-export default compose(withConnect)(withRouter(LogDetails));
+export default compose(withConnect)(withRouter(injectIntl(LogDetails)));

@@ -17,4 +17,16 @@ export default defineMessages({
     id: `${scope}.sendLog`,
     defaultMessage: 'Send log',
   },
+  successfullyUpdated: {
+    id: `${scope}.successfullyUpdated`,
+    defaultMessage: 'Log successfully updated',
+  },
+  successfullySent: {
+    id: `${scope}.successfullySent`,
+    defaultMessage: 'Log successfully sent',
+  },
+  title: {
+    id: `${scope}.title`,
+    defaultMessage: 'Details of log {id}',
+  },
 });

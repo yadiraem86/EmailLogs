@@ -14,6 +14,8 @@ import {
   SEND_LOG_DETAILS,
   SEND_LOG_DETAILS_SUCCESS,
   SEND_LOG_DETAILS_FAILURE,
+  CLEAR_LOG_SEND,
+  CLEAR_LOG_UPDATED,
 } from './constants';
 
 export function getLog(id) {
@@ -74,5 +76,17 @@ export function setSendLogError(error) {
   return {
     type: SEND_LOG_DETAILS_FAILURE,
     error,
+  };
+}
+
+export function clearLogSent() {
+  return {
+    type: CLEAR_LOG_SEND,
+  };
+}
+
+export function clearLogUpdated() {
+  return {
+    type: CLEAR_LOG_UPDATED,
   };
 }
