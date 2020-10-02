@@ -20,5 +20,6 @@ server.use(
 server.use(router);
 
 server.listen(8000, () => {
+  // eslint-disable-next-line no-console
   console.log('JSON Server is running');
 });

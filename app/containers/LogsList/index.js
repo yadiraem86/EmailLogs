@@ -169,8 +169,6 @@ LogsList.propTypes = {
   setLogs: PropTypes.func.isRequired,
   logs: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  logUpdated: PropTypes.bool,
-  logSent: PropTypes.bool,
   intl: intlShape,
   history: PropTypes.object.isRequired,
 };

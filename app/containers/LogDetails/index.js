@@ -49,9 +49,9 @@ const RightColumn = styled(Col)`
     margin-bottom: 1.5rem;
   }
 `;
-const CustomRow = styled(Row)`
-  margin-bottom: 1.25rem;
-`;
+// const CustomRow = styled(Row)`
+//   margin-bottom: 1.25rem;
+// `;
 const Container = styled(Row)`
   margin-left: -1.5rem;
   margin-right: -1.5rem;
@@ -97,7 +97,9 @@ export function LogDetails(props) {
   }, []);
 
   useEffect(() => {
-    (logSent || logUpdated) && getLog(match.params.id);
+    if (logSent || logUpdated) {
+      getLog(match.params.id);
+    }
 
     if (logSent) {
       message.info(
